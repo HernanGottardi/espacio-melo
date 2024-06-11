@@ -102,7 +102,7 @@ const displayCart = () => {
                 price: total
             };
 
-            const response = await fetch("https://e-commerce-iqtwj8dj9-hernans-projects-b8ac9745.vercel.app/create_preference", {
+            const response = await fetch("https://mpvercel.vercel.app/create_preference", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
