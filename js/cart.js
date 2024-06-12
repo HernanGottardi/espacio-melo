@@ -78,7 +78,7 @@ const displayCart = () => {
     const modalFooter = document.createElement("div");
     modalFooter.className = "modal-footer";
     modalFooter.innerHTML = `
-        <div class="total-price">Total: $${total}</div>
+        <div class="total-price">Total: $${total.toLocaleString('es-ES')}</div>
         <button class="btn-primary" id="checkout-btn">Ir a Pagar</button>
         <div id="wallet_container"></div>
     `;

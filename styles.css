@@ -102,6 +102,49 @@ body {
     background-color: #35034f;
     padding: 20px;
     border-radius: 20px;
+    font-size: 10px;
+}
+
+.delete-product {
+    margin-left: 2em;
+    cursor: pointer;
+}
+
+.product-img {
+    height: 80px;
+    margin-right: 20px;
+    width: 80px;
+}
+
+.quantity {
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    width: 200px;
+    padding: 0 15px;
+}
+
+.quantity-btn-decrese,
+.quantity-btn-increse {
+    color: white;
+    cursor: pointer;
+    width: 28px;
+    font-weight: bold;
+}
+
+.quantity-input {
+    color: white;
+    text-align: center;
+    width: 50px;
+    font-weight: bold; 
+}
+
+
+.product-info {
+    flex: 1;
+    text-align: center;
+    width: 250px;
+
 }
 
 @media (max-width: 500px) {
@@ -128,12 +171,12 @@ body {
     }
 
     .cart-btn {
-        top: 6vh;
+        top: 5vh;
         right: 12px;
     }
 
     .cart-counter {
-        top: 4.5vh;
+        top: 3.5vh;
         right: 6px;
     }
 
@@ -141,6 +184,37 @@ body {
     {
         font-size: 15px;
     }
+
+    .delete-product {
+        margin-left: 5px;
+        cursor: pointer;
+        width: 10%;
+    }
+
+    .quantity 
+    {
+        padding: 0 5px;
+        width: 20%;
+    }
+
+    .product-img
+    {
+        width: 40px;
+        height: 40px;
+        margin: 0;
+    }
+    
+    .product-info {
+        flex: 1;
+        text-align: center;
+        width: 40%;
+
+    }
+
+    .price {
+        width: 20%;
+    }
+    
 }
 
 .modal-container::-webkit-scrollbar {
@@ -164,53 +238,7 @@ body {
     text-align: center;
 }
 
-
-
-.product-img {
-    height: 80px;
-    margin-right: 20px;
-    width: 80px;
-}
-
-.product-info {
-    flex: 1;
-    text-align: center;
-    width: 250px;
-
-}
-
-
-.quantity {
-    display: flex;
-    align-items: center;
-    justify-content:center;
-    width: 200px;
-    padding: 0 15px;
-    /* margin-top: 10px;
-    margin-right: 4em; */
-}
-
-.quantity-btn-decrese,
-.quantity-btn-increse {
-    color: white;
-    cursor: pointer;
-    font-size: 20px;
-    width: 28px;
-    font-weight: bold;
-}
-
-.quantity-input {
-    color: white;
-    font-size: 20px;
-    text-align: center;
-    width: 50px;
-    font-weight: bold; 
-}
-
 @media only screen and (max-width: 500px) {
-    .product-img {
-        display: none;
-    }
 
     .modal-body {
         margin-left: 5px;
@@ -219,14 +247,10 @@ body {
 }
 
 .price {
-    font-size: 20px;
     font-weight: bold;
 }
 
-.delete-product {
-    margin-left: 2em;
-    cursor: pointer;
-}
+
 
 .modal-footer {
     text-align: center;
