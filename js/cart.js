@@ -3,7 +3,9 @@ const modalOverlay = document.querySelector("#modal-overlay");
 const cartBtn = document.querySelector("#cart-btn");
 const cartCounter = document.querySelector(".cart-counter");
 
-const displayCart = () => {
+const displayCart = () => 
+{
+
     modalContainer.innerHTML = "";
     modalContainer.style.display = "block";
     modalOverlay.style.display = "block";
@@ -27,7 +29,6 @@ const displayCart = () => {
     modalTitle.className = "modal-title";
 
     modalHeader.append(modalTitle);
-
     modalContainer.append(modalHeader);
 
     cart.forEach((p) => {

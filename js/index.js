@@ -1,5 +1,61 @@
 const shopContent = document.querySelector("#shopContent");
+const contenedorInfo = document.querySelector(".modal-informacion")
+const modalOver = document.querySelector("#modal-overlay");
+
 const cart = []
+
+const mostrarModalInfo = (p) =>
+{
+    contenedorInfo.style.display = "block";
+    modalOver.style.display = "block";
+    contenedorInfo.innerHTML = "";
+
+    // Modal Header.
+    const modalHeader = document.createElement("div");
+
+    const modalClose = document.createElement("div");
+    modalClose.innerText = "❌";
+    modalClose.className = "modal-close";
+
+    modalHeader.append(modalClose);
+
+
+    modalClose.addEventListener("click", () => {
+        contenedorInfo.style.display = "none";
+        modalOver.style.display = "none";
+    });
+
+    const body = document.createElement("div");
+    body.className = "bodyInformacion";
+    body.innerHTML = `
+        <h1 class="tituloInformacion">${p.productName}</h1>
+        <img class="imagenInformacion" src=${p.img}>
+        <h2>¿Que es?</h4>
+        <p class="descripcionInformacion">${p.descripcion}</p>
+        <h2>Caracteristicas</h4>
+        <div class="caracteristicasInformacion">
+            <p>- Duración: ${p.duracion}</p>
+            <p>- Modalidad: ${p.modalidad}</p>
+            <p>- Valor: $${p.price.toLocaleString('es-ES')}</p> 
+        </div>
+    `;
+
+    const footer = document.createElement("div");
+    footer.className = "footerInformacion";
+    footer.innerHTML = `
+        <a href="https://wa.me/message/JF5BCO7TZVLVG1" target="_blank">
+            <img id="wpp" class="icono" src="./media/WhatsApp.png">
+        </a>
+        <a href="https://www.instagram.com/espacio.melo/" target="_blank">
+            <img id="insta" class="icono" src="./media/instagram.png">
+        </a>
+
+    `
+    contenedorInfo.append(modalHeader)
+    contenedorInfo.append(body)
+    contenedorInfo.append(footer)
+}
+
 
 productos.forEach(p => {
     const content = document.createElement("div");
@@ -7,25 +63,53 @@ productos.forEach(p => {
     content.innerHTML = `
         <img src="${p.img}">
         <h3 class="nombreProducto">${p.productName}</h3>
-        <p>$${p.price.toLocaleString('es-ES')}</p>
+        <p class="precio">$${p.price.toLocaleString('es-ES')}</p>
+        <a class="MasInformacion" href="">Mas Información</a>
     `
     shopContent.append(content)
 
     const buyButton = document.createElement("button");
     buyButton.className = "botonComprar"
-    buyButton.innerText = "Comprar"
+    buyButton.innerText = "Agregar al 🛒"
 
     content.append(buyButton)
 
+    const buttonInformacionEl = content.querySelector(".MasInformacion");
+    try 
+    {
+        // Añade un manejador de eventos para mostrar la información modal
+        buttonInformacionEl.addEventListener("click", function(e) {
+            e.preventDefault()
+            mostrarModalInfo(p);
+        });        
+    } 
+    catch (error) 
+    {
+        console.log(error)
+    }
+
+
     buyButton.addEventListener("click", async (e)=> 
     {
+
+        const carrito = document.querySelector('.cart-btn');
+        const audio = document.querySelector("#buySound")
+        
+        // Reiniciar animación
+        carrito.classList.remove('glow');
+        audio.currentTime = 0;
+        audio.play();
+        void carrito.offsetWidth;  // Forzar reflow para reiniciar la animación
+        carrito.classList.add('glow');
+
         const button = e.target;
     
         // Añadir clase para efecto visual
         button.classList.add('clicked');
         
         // Quitar clase después de 300ms
-        setTimeout(function() {
+        setTimeout(function() 
+        {
             button.classList.remove('clicked');
         }, 100);
 

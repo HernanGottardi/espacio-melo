@@ -16,8 +16,7 @@ body {
 }
 
 .card-products-container {
-    margin: 10vh auto 0 auto;
-    height: 70vh;
+    margin: 5vh auto 0 auto;
 }
 
 .card-products {
@@ -148,6 +147,28 @@ body {
 }
 
 @media (max-width: 500px) {
+
+    .modal-informacion
+    {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+        overflow-y: auto;
+        transform: none;
+        font-size: 20px;
+        background-color: #611987;
+        z-index: 2;
+        overflow-y: auto;
+        color: white;
+    }
+
     .modal-container {
         display: none;
         position: fixed;
@@ -312,6 +333,7 @@ body {
     background-color: #d010ca;
     color: white;
     transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 15px;
 }
 
 .botonComprar:active {
@@ -322,4 +344,128 @@ body {
 .nombreProducto
 {
     width: 250px;
+}
+
+/* Efecto carrito */
+
+.glow {
+    animation: glowEffect 2s ease-in-out forwards;
+}
+
+@keyframes glowEffect {
+    0% {
+        box-shadow: 0 0 5px #ff05ee, 0 0 10px #ff05ee, 0 0 15px #ff05ee, 0 0 20px #ff05ee;
+    }
+    50% {
+        box-shadow: 0 0 20px #ff05ee, 0 0 30px #ff05ee, 0 0 40px #ff05ee, 0 0 50px #ff05ee;
+    }
+    100% {
+        box-shadow: 0 0 0px #ff05ee, 0 0 0px #ff05ee, 0 0 0px #ff05ee, 0 0 0px #ff05ee;
+    }
+}
+
+.MasInformacion
+{
+    text-decoration: none;
+    color: rgb(247, 5, 255);
+    margin-top: 80px;
+}
+
+.MasInformacion:visited
+{
+    color: rgb(247, 5, 255);
+}
+.MasInformacion:hover
+{
+    color: white;
+}
+
+.imagenInformacion
+{
+    width: 100px;
+    height: 100px;
+}
+
+.tituloInformacion
+{
+    color: #68d5d3;
+    text-align: center;
+    text-decoration:underline;
+    font-size: 35px;
+}
+
+.bodyInformacion
+{
+    display: flex;
+    flex-direction: column;
+    height: 95vh;
+    align-items: center;
+}
+
+h2 
+{
+    color: #68d5d3;
+    margin: 10px;
+    text-align: center;
+    text-decoration:underline;
+}
+
+p 
+{
+    margin: 5px;
+}
+
+.caracteristicasInformacion
+{
+    border: solid 1px #68d5d3;
+    border-radius: 10px;
+    width: 87%;
+    padding: 20px;
+}
+
+.descripcionInformacion
+{
+    border: solid 1px #68d5d3;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.icono
+{
+    width: 40px;
+    height: 40px;
+}
+
+.icono:hover
+{
+    cursor: pointer;
+}
+
+.footerInformacion
+{
+    margin-top: 25px;
+}
+
+.precio
+{
+    margin-bottom: 15px;
+}
+
+.contenedorFooter
+{
+    padding: 10px 20px;
+    color: rgba(255, 255, 255, 0.741);
+    height: 150px;
+    font-size: 12px;
+    background-color: #150015;
+}
+
+.contenedorFooter h1 
+{
+    margin: 30px 0;
+}
+
+.contenedorFooter a 
+{
+    margin-right: 30px ;
 }
