@@ -13,7 +13,7 @@ productos.forEach(p => {
 
     const buyButton = document.createElement("button");
     buyButton.className = "botonComprar"
-    buyButton.innerText = "Buy"
+    buyButton.innerText = "Comprar"
 
     content.append(buyButton)
 

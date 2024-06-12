@@ -40,12 +40,12 @@ const displayCart = () => {
                     <h4>${p.productName}</h4>
                 </div>
                 <div class="quantity">
-                    <span class="quantity-btn-decrese">-</span>
+                    <span class="quantity-btn-decrese">➖</span>
                     <span class="quantity-input">${p.quanty}</span>
-                    <span class="quantity-btn-increse">+</span>
+                    <span class="quantity-btn-increse">➕</span>
                 </div>
                 <div class="price">${p.price * p.quanty}</div>
-                <div class="delete-product">❌</div>
+                <div class="delete-product">🚫</div>
             </div> 
         `;
 
@@ -123,14 +123,16 @@ const displayCart = () => {
         const brickBuilder = mp.bricks();
 
         const renderComponent = async () => {
-            // Validacion para solo crear un boton de MP.
-            if (window.checkoutButton) window.checkoutButton.unmount();
-
-            await brickBuilder.create("wallet", "wallet_container", {
-                initialization: {
-                    preferenceId: preferenceId,
-                },
-            });
+            const walletContainer = document.querySelector("#wallet_container");
+            
+            // Validación para solo crear un botón de MP.
+            if (walletContainer.innerHTML.trim() === "") {
+                await brickBuilder.create("wallet", "wallet_container", {
+                    initialization: {
+                        preferenceId: preferenceId,
+                    },
+                });
+            }
         };
         renderComponent();
     }
