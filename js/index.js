@@ -30,7 +30,7 @@ const mostrarModalInfo = (p) =>
     body.innerHTML = `
         <h1 class="tituloInformacion">${p.productName}</h1>
         <img class="imagenInformacion" src=${p.img}>
-        <h2>¿Que es?</h4>
+        <h2>¿Qué es?</h4>
         <p class="descripcionInformacion">${p.descripcion}</p>
         <h2>Caracteristicas</h4>
         <div class="caracteristicasInformacion">

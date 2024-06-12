@@ -5,7 +5,7 @@ const productos = [
         price: 15000,
         quanty: 1,
         descripcion: "Limpieza, liberación y sanación de Chakras bloqueados, a traves de cuarzos. Al mismo tiempo, cada Chakra sera energizado mediante las gemas y el péndulo, con el fin de que la energía fluya. Finalmente armonizamos enviando Reiki.",
-        duracion: "1 hora",
+        duracion: "De 1 a 15 dias",
         modalidad: "Virtual",
         img: "./media/pendulo.png"
     },
