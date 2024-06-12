@@ -6,8 +6,8 @@ productos.forEach(p => {
     content.className = "content"
     content.innerHTML = `
         <img src="${p.img}">
-        <h3>${p.productName}</h3>
-        <p>$${p.price}</p>
+        <h3 class="nombreProducto">${p.productName}</h3>
+        <p>$${p.price.toLocaleString('es-ES')}</p>
     `
     shopContent.append(content)
 

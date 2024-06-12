@@ -23,7 +23,7 @@ const displayCart = () => {
     });
 
     const modalTitle = document.createElement("div");
-    modalTitle.innerText = "Cart";
+    modalTitle.innerText = "Carrito 🛒";
     modalTitle.className = "modal-title";
 
     modalHeader.append(modalTitle);
@@ -32,6 +32,7 @@ const displayCart = () => {
 
     cart.forEach((p) => {
         const modalBody = document.createElement("div");
+        const precio = p.price * p.quanty
         modalBody.className = "modal-body";
         modalBody.innerHTML = `
             <div class="product">
@@ -44,7 +45,7 @@ const displayCart = () => {
                     <span class="quantity-input">${p.quanty}</span>
                     <span class="quantity-btn-increse">➕</span>
                 </div>
-                <div class="price">${p.price * p.quanty}</div>
+                <div class="price">$${precio.toLocaleString('es-ES')}</div>
                 <div class="delete-product">🚫</div>
             </div> 
         `;
@@ -78,7 +79,7 @@ const displayCart = () => {
     modalFooter.className = "modal-footer";
     modalFooter.innerHTML = `
         <div class="total-price">Total: $${total}</div>
-        <button class="btn-primary" id="checkout-btn">go to checkout</button>
+        <button class="btn-primary" id="checkout-btn">Ir a Pagar</button>
         <div id="wallet_container"></div>
     `;
 

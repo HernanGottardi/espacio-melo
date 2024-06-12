@@ -1,16 +1,23 @@
 body {
-    background-color: #091c31;
+    background-color: #611987;
     margin: 0;
 }
 
 .encabezado {
-    height: 10vh;
-    background-color: #0062cc;
+    height: 15vh;
+    background-color: #35034f;
+}
+
+.logo
+{
+    width: 100px;
+    height: 100px;
+    margin-left: 20px;
 }
 
 .card-products-container {
     margin: 10vh auto 0 auto;
-    height: 80vh;
+    height: 70vh;
 }
 
 .card-products {
@@ -31,7 +38,7 @@ body {
     position: fixed;
     top: 90vh;
     right: 20px;
-    background-color: white;
+    background-color: rgb(242, 145, 234);
     padding: 10px;
     border-radius: 50%;
     height: 24px;
@@ -59,7 +66,7 @@ body {
     display: none;
     color: white;
     font-size: 20px;
-    background-color: rgb(8, 14, 92);
+    background-color: #611987;
     box-shadow: 0px 3px 6px black;
     padding: 40px;
     position: fixed;
@@ -71,6 +78,30 @@ body {
     z-index: 2;
     max-height: 80vh;
     overflow-y: auto;
+}
+
+.cart-counter {
+    position: fixed;
+    top: 89vh;
+    right: 10px;
+    color: #fff;
+    text-align: center;
+    background-color: red;
+    padding: 4px;
+    border-radius: 50%;
+    height: 17px;
+    width: 17px;
+    font-size: 15px;
+}
+
+.product {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    background-color: #35034f;
+    padding: 20px;
+    border-radius: 20px;
 }
 
 @media (max-width: 500px) {
@@ -95,6 +126,21 @@ body {
         justify-content: center;
         margin: 0 auto;
     }
+
+    .cart-btn {
+        top: 6vh;
+        right: 12px;
+    }
+
+    .cart-counter {
+        top: 4.5vh;
+        right: 6px;
+    }
+
+    .product
+    {
+        font-size: 15px;
+    }
 }
 
 .modal-container::-webkit-scrollbar {
@@ -107,7 +153,7 @@ body {
 }
 
 .modal-title {
-    font-size: 24px;
+    font-size: 40px;
     font-weight: bold;
     margin-bottom: 20px;
     text-align: center;
@@ -118,15 +164,7 @@ body {
     text-align: center;
 }
 
-.product {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin-bottom: 20px;
-    background-color: rgb(8, 2, 30);
-    padding: 20px;
-    border-radius: 20px;
-}
+
 
 .product-img {
     height: 80px;
@@ -137,17 +175,17 @@ body {
 .product-info {
     flex: 1;
     text-align: center;
+    width: 250px;
+
 }
 
-/* .product-info h4 {
-    margin-top: 35px;
-} */
 
 .quantity {
     display: flex;
     align-items: center;
     justify-content:center;
     width: 200px;
+    padding: 0 15px;
     /* margin-top: 10px;
     margin-right: 4em; */
 }
@@ -164,7 +202,6 @@ body {
 .quantity-input {
     color: white;
     font-size: 20px;
-    padding: 10px;
     text-align: center;
     width: 50px;
     font-weight: bold; 
@@ -202,23 +239,10 @@ body {
     margin-bottom: 10px;
 }
 
-.cart-counter {
-    position: fixed;
-    top: 89vh;
-    right: 10px;
-    color: #fff;
-    text-align: center;
-    background-color: red;
-    padding: 4px;
-    border-radius: 50%;
-    height: 17px;
-    width: 17px;
-    font-size: 15px;
-}
+
 
 .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
+    background-color: #d010ca;
     color: #ffffff;
     font-size: 14px;
     font-weight: bold;
@@ -226,11 +250,14 @@ body {
     text-transform: uppercase;
     transition: background-color 0;
     cursor: pointer;
+    border-radius: 10px;
+    width: 200px;
+    height: 60px;
 }
 
 .btn-primary:hover {
-    background-color: #0069d9;
-    border-color: #0062cc;
+    background-color: #aa15a5;
+    border-color: #941390;
 }
 
 #button-checkout {
@@ -243,7 +270,8 @@ body {
     padding: 20px;
     margin-bottom: 20px;
     color: white;
-    background-color: #0062cc;
+    background-color: #35034f  ;
+    font-size: 20px;
 }
 
 .card-products button:hover {
@@ -257,7 +285,7 @@ body {
     cursor: pointer;
     border: none;
     border-radius: 5px;
-    background-color: #1bcb7f;
+    background-color: #d010ca;
     color: white;
     transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -265,4 +293,9 @@ body {
 .botonComprar:active {
     transform: scale(0.95);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.nombreProducto
+{
+    width: 250px;
 }
