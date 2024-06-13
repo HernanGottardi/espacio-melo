@@ -6,6 +6,16 @@ const cartCounter = document.querySelector(".cart-counter");
 const displayCart = () => 
 {
 
+    // desaparecer header y carrito
+    const carrito = document.querySelector(".cart-btn");
+    carrito.style.display = "none";
+
+    const header = document.querySelector(".encabezado");
+    header.style.display = "none";
+
+    const contadorCarrito = document.querySelector(".cart-counter");
+    contadorCarrito.style.display = "none"
+
     modalContainer.innerHTML = "";
     modalContainer.style.display = "block";
     modalOverlay.style.display = "block";
@@ -22,6 +32,10 @@ const displayCart = () =>
     modalClose.addEventListener("click", () => {
         modalContainer.style.display = "none";
         modalOverlay.style.display = "none";
+        carrito.style.display = "initial";
+        header.style.display = "initial";
+        contadorCarrito.style.display = "initial"
+        displayCounter(); 
     });
 
     const modalTitle = document.createElement("div");
@@ -160,6 +174,7 @@ const displayCounter = () => {
     }
     else
     {
-        cartCounter.style.display = "none";
+        cartCounter.innerText = 0;
+
     }  
 }

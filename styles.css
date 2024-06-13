@@ -1,22 +1,29 @@
 body {
     background-color: #611987;
     margin: 0;
+    font-family: "Roboto", sans-serif;
 }
 
 .encabezado {
-    height: 15vh;
-    background-color: #35034f;
+    height: 10vh;
+    background-color: #1a0425;
+    padding: 1em;
+    position: fixed; 
+    width: 100%;
+    top: 0; 
+    left: 0;
+    z-index: 1000; 
 }
 
 .logo
 {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     margin-left: 20px;
 }
 
 .card-products-container {
-    margin: 5vh auto 0 auto;
+    margin: 150px auto 0 auto;
 }
 
 .card-products {
@@ -34,6 +41,7 @@ body {
 }
 
 .cart-btn {
+    z-index: 1000;
     position: fixed;
     top: 90vh;
     right: 20px;
@@ -91,6 +99,7 @@ body {
     height: 17px;
     width: 17px;
     font-size: 15px;
+    z-index: 1001;
 }
 
 .product {
@@ -455,17 +464,37 @@ p
 {
     padding: 10px 20px;
     color: rgba(255, 255, 255, 0.741);
-    height: 150px;
+    height: 100px;
     font-size: 12px;
     background-color: #150015;
 }
 
 .contenedorFooter h1 
 {
-    margin: 30px 0;
+    margin: 15px 0;
 }
 
 .contenedorFooter a 
 {
     margin-right: 30px ;
+}
+
+
+
+.wpp-btn {
+    z-index: 1000;
+    position: fixed;
+    top: 90%;
+    right: 7px;
+    padding: 10px;
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    transition: transform 0.2s ease-in-out;
+    background-color:#25D366;
+}
+
+.wpp-btn:hover 
+{
+    cursor: pointer;
 }

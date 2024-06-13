@@ -10,6 +10,16 @@ const mostrarModalInfo = (p) =>
     modalOver.style.display = "block";
     contenedorInfo.innerHTML = "";
 
+    // desaparecer header y carrito
+    const carrito = document.querySelector(".cart-btn");
+    carrito.style.display = "none";
+
+    const header = document.querySelector(".encabezado");
+    header.style.display = "none";
+
+    const contadorCarrito = document.querySelector(".cart-counter");
+    contadorCarrito.style.display = "none"
+
     // Modal Header.
     const modalHeader = document.createElement("div");
 
@@ -19,10 +29,15 @@ const mostrarModalInfo = (p) =>
 
     modalHeader.append(modalClose);
 
-
     modalClose.addEventListener("click", () => {
         contenedorInfo.style.display = "none";
         modalOver.style.display = "none";
+        modalContainer.style.display = "none";
+        modalOverlay.style.display = "none";
+        carrito.style.display = "initial";
+        header.style.display = "initial";
+        contadorCarrito.style.display = "initial"
+        displayCounter(); 
     });
 
     const body = document.createElement("div");
