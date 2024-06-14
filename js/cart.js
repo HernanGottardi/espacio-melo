@@ -33,7 +33,7 @@ const displayCart = () =>
         modalContainer.style.display = "none";
         modalOverlay.style.display = "none";
         carrito.style.display = "initial";
-        header.style.display = "initial";
+        header.style.display = "flex";
         contadorCarrito.style.display = "initial"
         displayCounter(); 
     });
