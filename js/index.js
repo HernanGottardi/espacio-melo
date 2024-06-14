@@ -1,9 +1,10 @@
-
 const shopContent = document.querySelector("#shopContent");
 const contenedorInfo = document.querySelector(".modal-informacion");
 const modalOver = document.querySelector("#modal-overlay");
-
 const buscador = document.querySelector(".buscadorProductos");
+const cartBTN = document.querySelector(".cart-btn");
+const contadorCarrito = document.querySelector(".cart-counter");
+const encabezado = document.querySelector(".encabezado");
 const cart = [];
 
 const mostrarProductos = (productosMostrados) => {
@@ -12,8 +13,8 @@ const mostrarProductos = (productosMostrados) => {
         const content = document.createElement("div");
         content.className = "content";
         content.innerHTML = `
-            <img src="${p.img}">
             <h3 class="nombreProducto">${p.productName}</h3>
+            <img src="${p.img}">
             <p class="precio">$${p.price.toLocaleString('es-ES')}</p>
             <a class="MasInformacion" href="#">Más Información</a>
         `;
@@ -31,22 +32,19 @@ const mostrarProductos = (productosMostrados) => {
             button.classList.add('clicked');
             setTimeout(() => button.classList.remove('clicked'), 100);
 
-            // Agregar clase glow al botón cartBtn
-            cartBtn.classList.add('glow');
+            cartBTN.classList.add('glow');
 
             const audio = document.querySelector("#buySound");
             audio.currentTime = 0;
             audio.play();
-            
-            // Eliminar la clase glow después de 500ms
+
             setTimeout(() => {
-                
-                cartBtn.classList.remove('glow');
+                cartBTN.classList.remove('glow');
             }, 2000);
 
             const productoSeleccionado = productos.find(prod => prod.id === p.id);
             const existeEnCarrito = cart.some(item => item.id === productoSeleccionado.id);
-            
+
             if (existeEnCarrito) {
                 cart.forEach(item => {
                     if (item.id === productoSeleccionado.id) {
@@ -79,6 +77,9 @@ const mostrarModalInfo = (p) => {
     modalOver.style.display = "block";
     contenedorInfo.innerHTML = "";
 
+    const encabezado = document.querySelector(".encabezado");
+    encabezado.style.display = "none";
+
     const modalHeader = document.createElement("div");
     const modalClose = document.createElement("div");
     modalClose.innerText = "❌";
@@ -89,11 +90,7 @@ const mostrarModalInfo = (p) => {
     modalClose.addEventListener("click", () => {
         contenedorInfo.style.display = "none";
         modalOver.style.display = "none";
-        modalContainer.style.display = "none";
-        modalOverlay.style.display = "none";
-        carrito.style.display = "initial";
-        header.style.display = "initial";
-        contadorCarrito.style.display = "initial";
+        encabezado.style.display = "flex";  // Mostrar encabezado nuevamente
         displayCounter(); 
     });
 
@@ -138,12 +135,10 @@ buscador.addEventListener("input", (e) => {
         return p.productName.toLowerCase().includes(valorBusqueda);
     });
 
-    // Mostrar productos filtrados o todos si no hay búsqueda
     mostrarProductos(productosFiltrados.length > 0 ? productosFiltrados : productos);
 });
 
 // Función para mostrar el contador del carrito
 function displayCounter() {
-    const contadorCarrito = document.querySelector(".cart-counter");
     contadorCarrito.textContent = cart.reduce((total, item) => total + item.quantity, 0);
 }
