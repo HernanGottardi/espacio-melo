@@ -3,51 +3,43 @@ const modalOverlay = document.querySelector("#modal-overlay");
 const cartBtn = document.querySelector("#cart-btn");
 const cartCounter = document.querySelector(".cart-counter");
 
-const displayCart = () => 
-{
-
-    // desaparecer header y carrito
-    const carrito = document.querySelector(".cart-btn");
-    carrito.style.display = "none";
-
+const displayCart = () => {
+    // Ocultar header y contador de carrito
     const header = document.querySelector(".encabezado");
     header.style.display = "none";
 
     const contadorCarrito = document.querySelector(".cart-counter");
-    contadorCarrito.style.display = "none"
+    contadorCarrito.style.display = "none";
 
+    // Limpiar modal anterior y mostrar el contenedor del modal
     modalContainer.innerHTML = "";
     modalContainer.style.display = "block";
     modalOverlay.style.display = "block";
-    
-    // Modal Header.
+
+    // Modal Header
     const modalHeader = document.createElement("div");
+    modalHeader.className = "modal-header";
 
     const modalClose = document.createElement("div");
     modalClose.innerText = "❌";
     modalClose.className = "modal-close";
-
-    modalHeader.append(modalClose);
-
     modalClose.addEventListener("click", () => {
-        modalContainer.style.display = "none";
-        modalOverlay.style.display = "none";
-        carrito.style.display = "initial";
-        header.style.display = "flex";
-        contadorCarrito.style.display = "initial"
-        displayCounter(); 
+        cerrarModal();
     });
+
+    modalHeader.appendChild(modalClose);
 
     const modalTitle = document.createElement("div");
     modalTitle.innerText = "Carrito 🛒";
     modalTitle.className = "modal-title";
 
-    modalHeader.append(modalTitle);
-    modalContainer.append(modalHeader);
+    modalHeader.appendChild(modalTitle);
+    modalContainer.appendChild(modalHeader);
 
-    cart.forEach((p) => {
+    // Mostrar cada producto en el carrito
+    cart.forEach(p => {
         const modalBody = document.createElement("div");
-        const precio = p.price * p.quanty
+        const precio = p.price * p.quantity;
         modalBody.className = "modal-body";
         modalBody.innerHTML = `
             <div class="product">
@@ -57,38 +49,40 @@ const displayCart = () =>
                 </div>
                 <div class="quantity">
                     <span class="quantity-btn-decrese">➖</span>
-                    <span class="quantity-input">${p.quanty}</span>
+                    <span class="quantity-input">${p.quantity}</span>
                     <span class="quantity-btn-increse">➕</span>
                 </div>
                 <div class="price">$${precio.toLocaleString('es-ES')}</div>
                 <div class="delete-product">🚫</div>
-            </div> 
+            </div>
         `;
 
-        modalContainer.append(modalBody);
-    
-        const decrese = modalBody.querySelector(".quantity-btn-decrese");
-        decrese.addEventListener("click", () => {
-            if (p.quanty !== 1) {
-                p.quanty--;
+        modalContainer.appendChild(modalBody);
+
+        // Eventos para modificar la cantidad y eliminar productos
+        const decreaseBtn = modalBody.querySelector(".quantity-btn-decrese");
+        decreaseBtn.addEventListener("click", () => {
+            if (p.quantity > 1) {
+                p.quantity--;
                 displayCart();
             }
         });
 
-        const increse = modalBody.querySelector(".quantity-btn-increse");
-        increse.addEventListener("click", () => {
-            p.quanty++;   
+        const increaseBtn = modalBody.querySelector(".quantity-btn-increse");
+        increaseBtn.addEventListener("click", () => {
+            p.quantity++;
             displayCart();
-            });
+        });
 
-        const borrar = modalBody.querySelector(".delete-product");
-        borrar.addEventListener("click", () => {
+        const deleteBtn = modalBody.querySelector(".delete-product");
+        deleteBtn.addEventListener("click", () => {
             deleteCartProduct(p.id);
-            displayCart(); // Para actualizar la vista después de eliminar el producto
+            displayCart();
         });
     });
 
-    const total = cart.reduce((acc, el) => acc + el.price * el.quanty, 0);
+    // Calcular y mostrar el total del carrito
+    const total = cart.reduce((acc, el) => acc + el.price * el.quantity, 0);
 
     const modalFooter = document.createElement("div");
     modalFooter.className = "modal-footer";
@@ -98,20 +92,12 @@ const displayCart = () =>
         <div id="wallet_container"></div>
     `;
 
-    modalContainer.append(modalFooter);
+    modalContainer.appendChild(modalFooter);
 
-    // MP ---------------------------------------------------------
-    const mp = new MercadoPago("APP_USR-38e265f7-7184-46ce-a88d-f9f21c60ac96", {
-        locale: "es-AR"
-    });
-
-    const generateCartDescription = () => {
-        return cart.map(product => `${product.productName} (x${product.quanty})`).join(', ')
-    }
-
-    document.querySelector("#checkout-btn").addEventListener("click", async () => {
-        try 
-        {
+    // Evento para ir a pagar con MercadoPago
+    const checkoutBtn = modalFooter.querySelector("#checkout-btn");
+    checkoutBtn.addEventListener("click", async () => {
+        try {
             const orderData = {
                 title: generateCartDescription(),
                 quantity: 1,
@@ -128,53 +114,61 @@ const displayCart = () =>
 
             const preference = await response.json();
             createCheckoutButton(preference.id);
+        } catch (error) {
+            alert("Error al procesar el pago 😕");
         }
-        catch (error)
-        {
-            alert("error 😕")
-        }
-    })
+    });
 
-    const createCheckoutButton = (preferenceId)=>{
-        const brickBuilder = mp.bricks();
+    // Mostrar el componente de pago de MercadoPago
+    createCheckoutButton();
 
-        const renderComponent = async () => {
-            const walletContainer = document.querySelector("#wallet_container");
-            
-            // Validación para solo crear un botón de MP.
-            if (walletContainer.innerHTML.trim() === "") {
-                await brickBuilder.create("wallet", "wallet_container", {
-                    initialization: {
-                        preferenceId: preferenceId,
-                    },
-                });
-            }
-        };
-        renderComponent();
-    }
-};
-// ----------------------------------------------------------------
-
-cartBtn.addEventListener("click", displayCart);
-
-const deleteCartProduct = (id) => {
-    const foundId = cart.findIndex((element) => element.id === id);
-    if (foundId !== -1) {
-        cart.splice(foundId, 1); // Remover el producto del carrito
+    // Función para cerrar el modal
+    function cerrarModal() {
+        modalContainer.style.display = "none";
+        modalOverlay.style.display = "none";
+        header.style.display = "flex";
+        contadorCarrito.style.display = "block";
         displayCounter();
     }
 };
 
-const displayCounter = () => {
-    const cartLength = cart.reduce((acc, el) => acc + el.quanty, 0);
-    if (cartLength > 0)
-    {
-        cartCounter.style.display = "block";
-        cartCounter.innerText = cartLength;
-    }
-    else
-    {
-        cartCounter.innerText = 0;
+// Evento para mostrar el carrito al hacer click en el botón de carrito
+cartBtn.addEventListener("click", displayCart);
 
-    }  
+// Eliminar un producto del carrito por su ID
+const deleteCartProduct = (id) => {
+    const index = cart.findIndex(item => item.id === id);
+    if (index !== -1) {
+        cart.splice(index, 1);
+        displayCounter();
+    }
+};
+
+// Función para mostrar el contador del carrito
+function displayCounter() {
+    const cartLength = cart.reduce((acc, el) => acc + el.quantity, 0);
+    cartCounter.textContent = cartLength;
+    cartCounter.style.display = cartLength > 0 ? "block" : "block";
+}
+
+// Generar descripción del carrito para MercadoPago
+function generateCartDescription() {
+    return cart.map(product => `${product.productName} (x${product.quantity})`).join(', ');
+}
+
+// Función para crear el botón de pago de MercadoPago
+function createCheckoutButton(preferenceId) {
+    const walletContainer = document.querySelector("#wallet_container");
+    if (walletContainer.innerHTML.trim() === "") {
+        const mp = new MercadoPago("APP_USR-38e265f7-7184-46ce-a88d-f9f21c60ac96", {
+            locale: "es-AR"
+        });
+
+        mp.render({
+            element: 'wallet_container',
+            preference: {
+                id: preferenceId
+            }
+        });
+    }
 }
