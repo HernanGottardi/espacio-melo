@@ -27,6 +27,9 @@ body {
 }
 
 .card-products {
+    flex-wrap: wrap;
+    margin: 0 auto;
+    width: 80%;
     text-align: center;
     display: flex;
     flex-direction: row;
@@ -43,7 +46,7 @@ body {
 .cart-btn {
     z-index: 1000;
     position: fixed;
-    top: 90vh;
+    top: 5vh;
     right: 20px;
     background-color: rgb(242, 145, 234);
     padding: 10px;
@@ -89,7 +92,7 @@ body {
 
 .cart-counter {
     position: fixed;
-    top: 89vh;
+    top:4vh;
     right: 10px;
     color: #fff;
     text-align: center;
@@ -484,7 +487,7 @@ p
 .wpp-btn {
     z-index: 1000;
     position: fixed;
-    top: 90%;
+    top: 93%;
     right: 7px;
     padding: 10px;
     border-radius: 50%;
