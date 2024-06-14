@@ -330,6 +330,7 @@ body {
     flex-direction: column;
     /* height: 95vh; */
     align-items: center;
+    margin-top: 60px;
 }
 
 h2 
