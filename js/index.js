@@ -1,14 +1,17 @@
 const shopContent = document.querySelector("#shopContent");
-const contenedorInfo = document.querySelector(".modal-informacion");
+const modalMasInfo = document.querySelector(".modal-informacion");
+const modalMenu = document.querySelector(".modal-menu");
 const modalOver = document.querySelector("#modal-overlay");
 const buscador = document.querySelector(".buscadorProductos");
 const cartBTN = document.querySelector(".cart-btn");
 const contadorCarrito = document.querySelector(".cart-counter");
 const encabezado = document.querySelector(".encabezado");
+const menu = document.querySelector(".menu")
+const w = document.querySelector(".wpp-enlace")
 const cart = [];
 
 const mostrarProductos = (productosMostrados) => {
-    shopContent.innerHTML = "";
+    shopContent.innerHTML = '';
     productosMostrados.forEach(p => {
         const content = document.createElement("div");
         content.className = "content";
@@ -19,25 +22,18 @@ const mostrarProductos = (productosMostrados) => {
             <a class="MasInformacion" href="#">Más Información</a>
         `;
 
-        const buyButton = document.createElement("button");
-        buyButton.className = "botonComprar";
-        buyButton.innerText = "Agregar al 🛒";
-
-        content.append(buyButton);
+        const agregarButton = document.createElement("button");
+        agregarButton.className = "botonComprar";
+        agregarButton.innerText = "Agregar al 🛒";
+        content.append(agregarButton);
         shopContent.append(content);
 
-        buyButton.addEventListener("click", async (e) => {
+        agregarButton.addEventListener("click", async (e) => {
             e.preventDefault();
-            const button = e.target;
-            button.classList.add('clicked');
-            setTimeout(() => button.classList.remove('clicked'), 100);
-
             cartBTN.classList.add('glow');
-
             const audio = document.querySelector("#buySound");
             audio.currentTime = 0;
             audio.play();
-
             setTimeout(() => {
                 cartBTN.classList.remove('glow');
             }, 2000);
@@ -60,12 +56,11 @@ const mostrarProductos = (productosMostrados) => {
                     img: productoSeleccionado.img
                 });
             }
-
             displayCounter();
         });
 
-        const buttonInformacionEl = content.querySelector(".MasInformacion");
-        buttonInformacionEl.addEventListener("click", function(e) {
+        const masInfoEl = content.querySelector(".MasInformacion");
+        masInfoEl.addEventListener("click", function(e) {
             e.preventDefault();
             mostrarModalInfo(p);
         });
@@ -73,25 +68,20 @@ const mostrarProductos = (productosMostrados) => {
 };
 
 const mostrarModalInfo = (p) => {
-    contenedorInfo.style.display = "block";
+    modalMasInfo.style.display = "block";
     modalOver.style.display = "block";
-    contenedorInfo.innerHTML = "";
-
-    const encabezado = document.querySelector(".encabezado");
     encabezado.style.display = "none";
 
     const modalHeader = document.createElement("div");
     const modalClose = document.createElement("div");
     modalClose.innerText = "❌";
     modalClose.className = "modal-close";
-
     modalHeader.append(modalClose);
 
     modalClose.addEventListener("click", () => {
-        contenedorInfo.style.display = "none";
+        modalMasInfo.style.display = "none";
         modalOver.style.display = "none";
-        encabezado.style.display = "flex";  // Mostrar encabezado nuevamente
-        displayCounter(); 
+        encabezado.style.display = "grid";
     });
 
     const body = document.createElement("div");
@@ -108,37 +98,74 @@ const mostrarModalInfo = (p) => {
             <p>- Valor: $${p.price.toLocaleString('es-ES')}</p> 
         </div>
     `;
-
     const footer = document.createElement("div");
     footer.className = "footerInformacion";
     footer.innerHTML = `
-        <a href="https://wa.me/message/JF5BCO7TZVLVG1" target="_blank">
-            <img id="wpp" class="icono" src="./media/WhatsApp.png">
-        </a>
         <a href="https://www.instagram.com/espacio.melo/" target="_blank">
             <img id="insta" class="icono" src="./media/instagram.png">
         </a>
     `;
 
-    contenedorInfo.append(modalHeader);
-    contenedorInfo.append(body);
-    contenedorInfo.append(footer);
+    modalMasInfo.append(modalHeader);
+    modalMasInfo.append(body);
+    modalMasInfo.append(footer);
 };
 
-// Función para mostrar todos los productos al inicio
 mostrarProductos(productos);
 
-// Evento para filtrar productos según lo ingresado en el buscador
 buscador.addEventListener("input", (e) => {
+    e.preventDefault();
     const valorBusqueda = e.target.value.trim().toLowerCase();
-    const productosFiltrados = productos.filter(p => {
+    const productosFiltrados = productos.filter(p => 
+    {
         return p.productName.toLowerCase().includes(valorBusqueda);
     });
-
     mostrarProductos(productosFiltrados.length > 0 ? productosFiltrados : productos);
 });
 
-// Función para mostrar el contador del carrito
-function displayCounter() {
+function displayCounter() 
+{
     contadorCarrito.textContent = cart.reduce((total, item) => total + item.quantity, 0);
 }
+
+menu.addEventListener("click", (e) => {
+    try {
+        e.preventDefault();
+        encabezado.style.display = "none";
+        modalMenu.style.display = "block";
+        modalOver.style.display = "block";
+        w.style.display = "none";
+
+        const close = document.createElement("div");
+        close.innerText = "❌";
+        close.className = "modal-close";
+
+        const header = document.createElement("div");
+        header.className = "headerMenu"
+        header.append(close);
+
+        close.addEventListener("click", () => {
+            modalMenu.style.display = "none";
+            modalOver.style.display = "none";
+            encabezado.style.display = "grid";
+            w.style.display = "initial";
+        });
+
+        const body = document.createElement("div");
+        body.className = "bodyMenu"
+        body.innerHTML = `
+            <div class="contenedorOpcionesMenu">
+                <a class="opcionMenu" href="#">Contacto</a>
+                <a class="opcionMenu" href="#">Tarot</a>
+                <a class="opcionMenu" href="#">Más</a>
+            </div>
+        `;
+
+        modalMenu.innerHTML = '';
+        modalMenu.append(header);
+        modalMenu.append(body);
+
+    } catch (error) {
+        console.log(error);
+    }
+});

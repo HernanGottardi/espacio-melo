@@ -11,55 +11,62 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 </head>
 <body> 
+
+    <!-- Encabezado -->
     <header class="encabezado">
-        <a href="./index.html">
+
+        <a class="centrarEnlace" href="./index.html">
+            <img class="menu" src="./media/Menu.png" alt="Menu">
+        </a>
+
+        <a class="centrarEnlace" href="./index.html">
             <img class="logo" src="./media/logoEspacioMelo.png" alt="Espacio Melo">
         </a>
         
-        <input class="buscadorProductos" type="text" placeholder="Buscar...">
-        
-        <div class="contenedorCarrito">
+        <div class="contenedorCarrito centrarEnlace">
             <!-- cart btn -->
             <div class="cart-btn" id="cart-btn"> 🛒 </div>
             <!-- contador -->
             <span class="cart-counter" id="cart-counter"> 0 </span>
         </div>
+        <div class="contenedorBuscador">
+            <input class="buscadorProductos" type="text" placeholder="¿Qué estas buscando?">
+        </div>
+
+
     </header>
 
     <audio id="buySound" src="./media/button.mp3"></audio>
 
-    <!-- shop -->
+    <!-- Carrito -->
     <div class="card-products-container">
         <div class="card-products" id="shopContent">
         </div>
     </div>
 
+    <!-- Pie de pagina -->
     <footer class="contenedorFooter">
         <h1> REDES SOCIALES </h1>
         <div>
-            <a href="https://wa.me/message/JF5BCO7TZVLVG1" target="_blank">
-                <img id="wpp" class="icono" src="./media/WhatsApp.png">
-            </a>
             <a href="https://www.instagram.com/espacio.melo/" target="_blank">
                 <img id="insta" class="icono" src="./media/instagram.png">
             </a>
         </div>
     </footer>
 
-    
-
     <!-- modal -->
     <div class="modal-overlay" id="modal-overlay"></div>
     <div class="modal-container" id="modal-container"></div>
 
     <div class="modal-informacion" id="modal-informacion"></div>
+    <div class="modal-menu" id="modal-menu"></div>
 
     <!-- importaciones -->
     <script src="./js/productos.js"></script>
-    <script src="./js/index.js"></script>
+    <script defer src="./js/index.js"></script>
     <script src="./js/cart.js"></script>
 
-    <a href="https://wa.me/message/JF5BCO7TZVLVG1" target="_blank" rel="noopener noreferrer">
+    <a class="wpp-enlace" href="https://wa.me/message/JF5BCO7TZVLVG1" target="_blank" rel="noopener noreferrer">
         <img src="./media/WhatsApp.png" class="wpp-btn" id="wpp-btn">
     </a>
 
