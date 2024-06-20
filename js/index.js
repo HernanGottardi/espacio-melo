@@ -74,6 +74,8 @@ const mostrarProductos = (productosMostrados) => {
 };
 
 const mostrarModalInfo = (p) => {
+
+    modalMasInfo.innerHTML = ``;
     modalMasInfo.style.display = "block";
     modalOver.style.display = "block";
     encabezado.style.display = "none";

@@ -455,7 +455,7 @@ p
     z-index: 1000;
     position: fixed;
     top: 93%;
-    right: 7px;
+    right: 5px;
     padding: 10px;
     border-radius: 50%;
     height: 25px;
@@ -723,7 +723,7 @@ p
     overflow-y: auto;
     transform: none;
     font-size: 20px;
-    background-color: #611987;
+    background-color: #d026ff;
     z-index: 2;
     color: white;
     margin: 12vh auto 0 auto;
