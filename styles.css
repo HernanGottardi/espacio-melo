@@ -72,13 +72,15 @@ body {
 }
 
 .card-products-container {
-    margin: 160px auto 0 auto;
+    margin: 22vh auto 0 auto;
 }
 
 .card-products {
-    flex-wrap: wrap;
     margin: 0 auto;
-    width: 80%;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
     text-align: center;
     display: flex;
     flex-direction: row;
@@ -284,7 +286,8 @@ body {
     z-index: 10;
 }
 
-.content {
+.content 
+{
     border: 1px solid black;
     border-radius: 20px;
     padding: 20px;
@@ -424,7 +427,6 @@ p
 }
 
 
-
 .precio
 {
     margin: 15px 0px;
@@ -527,10 +529,10 @@ p
     }
 
     .card-products {
-        width: 300px;
         flex-direction: column;
         justify-content: center;
-        margin: 0 auto;
+        align-items: center;
+        margin-top: 15vh;
     }
 
     .cart-btn {
@@ -624,4 +626,132 @@ p
 .imagenItem
 {
     margin-top: 5px;
+}
+
+.modal-sobreMi
+{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    transform: none;
+    font-size: 20px;
+    background-color: #ee73de;
+    z-index: 2;
+    overflow-y: auto;
+    color: white;
+    margin: 13vh auto 0 auto;
+
+    
+}
+
+.contenedorImgSobreMi
+{
+    width: 100%;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.imgMama
+{
+    
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+.tituloSobreMi
+{
+    text-align: center;
+    color: #570946;
+
+    font-family: 'Arial', sans-serif; /* Fuente */
+    font-size: 1em; /* Tamaño del texto */
+    color: #333; /* Color del texto */
+    text-align: center; /* Alineación del texto */
+    padding: 20px; /* Espaciado interno */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+    text-shadow: 2px 2px 4px rgb(255, 255, 255);
+
+    letter-spacing: 2px; /* Espaciado entre letras */
+    text-transform: uppercase; /* Transformar texto a mayúsculas */
+    border: 2px solid #ccc; /* Borde */
+    margin: 20px auto; /* Margen */
+    width: fit-content; /* Ajustar ancho al contenido */
+    
+}
+
+.contenedorImgSobreMi
+{
+    margin-top: 30px;
+}
+
+.descripcionSobreMi
+{
+    text-align: center;
+    margin-top: 25px;
+    font-size: 25px;
+    color: #000000;
+    text-shadow: 2px 2px 4px rgb(255, 255, 255);
+}
+
+.modal-tarot
+{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    padding-bottom: 80px;
+    padding-top: 30px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    transform: none;
+    font-size: 20px;
+    background-color: #611987;
+    z-index: 2;
+    color: white;
+    margin: 12vh auto 0 auto;
+
+    text-align: center;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* .modal-tarot .contenedor 
+{
+
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    color: white;
+    background-color: #35034f  ;
+    font-size: 20px;
+    margin: 0;
+
+} */
+
+.modal-tarot img 
+{
+    margin-top: 20px;
+    width: 250px;
+    height: 250px;
+    
 }
