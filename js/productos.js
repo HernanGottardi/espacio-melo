@@ -51,8 +51,8 @@ const productos = [
     },
     {
         id: 6,
-        productName: "Tarot turro",
-        price: 15000,
+        productName: "Tarot para pruebas",
+        price: 1,
         quanty: 1,
         descripcion: "Esta sesion consiste en la 'Lectura del Alma'. Recibirás mensajes e información de otras vidas para que puedas Evolucionar Espiritualmente y Personalmente. Nuestros Guías Espirituales son quienes nos transmiten los mensajes, a través de quienes estamos preparados e iniciados para canalizar.",
         duracion: "1 hora",

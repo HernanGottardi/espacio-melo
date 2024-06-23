@@ -1,3 +1,21 @@
+import { cart } from './index.js'; // Asegúrate de que la ruta sea correcta
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+import { getFirestore, doc, setDoc, getDocs, collection, query, where, deleteDoc } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
+
+// Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyB-cvjO5Ze1jUG5WRVd6pFPWHPq56vjJZc",
+    authDomain: "espaciomelo-34e9a.firebaseapp.com",
+    projectId: "espaciomelo-34e9a",
+    storageBucket: "espaciomelo-34e9a.appspot.com",
+    messagingSenderId: "90914534743",
+    appId: "1:90914534743:web:fd53ebbe6384be9cc53a12"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const agendaRef = collection(db, "agenda");
+
 const modalContainer = document.querySelector("#modal-container");
 const modalOverlay = document.querySelector("#modal-overlay");
 const cartBtn = document.querySelector("#cart-btn");
@@ -5,8 +23,7 @@ const cartCounter = document.querySelector(".cart-counter");
 
 const mp = new MercadoPago('APP_USR-38e265f7-7184-46ce-a88d-f9f21c60ac96');
 
-const displayCart = () => 
-{
+const displayCart = () => {
     // Ocultar header y contador de carrito
     const header = document.querySelector(".encabezado");
     header.style.display = "none";
@@ -40,46 +57,32 @@ const displayCart = () =>
     modalContainer.appendChild(modalHeader);
 
     // Mostrar cada producto en el carrito
-    cart.forEach(p => {
+    cart.forEach((p, index) => {
+        const partesFecha = p.fecha_hora.split("-");
         const modalBody = document.createElement("div");
         const precio = p.price * p.quantity;
         modalBody.className = "modal-body";
         modalBody.innerHTML = `
+            <div><p>Turno: El dia ${partesFecha[2]}/${partesFecha[1]}/${partesFecha[0]} a las ${partesFecha[3]}hs.</p></div>
             <div class="product">
                 <img class="product-img" src="${p.img}"/>
                 <div class="product-info">
                     <h4>${p.productName}</h4>
                 </div>
-                <div class="quantity">
-                    <span class="quantity-btn-decrese">➖</span>
-                    <span class="quantity-input">${p.quantity}</span>
-                    <span class="quantity-btn-increse">➕</span>
-                </div>
                 <div class="price">$${precio.toLocaleString('es-ES')}</div>
-                <div class="delete-product">🚫</div>
+                <div class="delete-product" data-index="${index}">🚫</div>
             </div>
         `;
 
         modalContainer.appendChild(modalBody);
+    });
 
-        // Eventos para modificar la cantidad y eliminar productos
-        const decreaseBtn = modalBody.querySelector(".quantity-btn-decrese");
-        decreaseBtn.addEventListener("click", () => {
-            if (p.quantity > 1) {
-                p.quantity--;
-                displayCart();
-            }
-        });
-
-        const increaseBtn = modalBody.querySelector(".quantity-btn-increse");
-        increaseBtn.addEventListener("click", () => {
-            p.quantity++;
-            displayCart();
-        });
-
-        const deleteBtn = modalBody.querySelector(".delete-product");
-        deleteBtn.addEventListener("click", () => {
-            deleteCartProduct(p.id);
+    // Agregar evento de clic para eliminar productos
+    const deleteButtons = modalContainer.querySelectorAll(".delete-product");
+    deleteButtons.forEach(button => {
+        button.addEventListener("click", (e) => {
+            const productIndex = e.target.getAttribute("data-index");
+            deleteCartProduct(productIndex);
             displayCart();
         });
     });
@@ -118,14 +121,14 @@ const displayCart = () =>
             const preference = await response.json();
             createCheckoutButton(preference.id);
         } catch (error) {
-            console.log(error)
+            console.log(error);
             alert("Error al procesar el pago 😕");
         }
     });
 
-
     // Función para cerrar el modal
-    function cerrarModal() {
+    function cerrarModal() 
+    {
         modalContainer.style.display = "none";
         modalOverlay.style.display = "none";
         header.style.display = "grid";
@@ -137,20 +140,32 @@ const displayCart = () =>
 // Evento para mostrar el carrito al hacer click en el botón de carrito
 cartBtn.addEventListener("click", displayCart);
 
-// Eliminar un producto del carrito por su ID
-const deleteCartProduct = (id) => {
-    const index = cart.findIndex(item => item.id === id);
-    if (index !== -1) {
-        cart.splice(index, 1);
-        displayCounter();
+// Borro en la base de datos.
+const deleteAgendaDoc = async (id) => {
+    try {
+        const docRef = doc(db, "agenda", id);
+        await deleteDoc(docRef);
+        console.log("Documento eliminado con éxito");
+    } catch (error) {
+        console.error("Error al eliminar el documento: ", error);
     }
+};
+
+// Borro en la base de datos y en el carrito.
+const deleteCartProduct = (index) => {
+    // Base de datos.
+    const cartBorrar = cart[index];
+    deleteAgendaDoc(cartBorrar.fecha_hora);
+    // carrito.
+    cart.splice(index, 1);
+    // Actualizamos el contador.
+    displayCounter();
 };
 
 // Función para mostrar el contador del carrito
 function displayCounter() {
     const cartLength = cart.reduce((acc, el) => acc + el.quantity, 0);
     cartCounter.textContent = cartLength;
-    cartCounter.style.display = cartLength > 0 ? "block" : "block";
 }
 
 // Generar descripción del carrito para MercadoPago
@@ -159,21 +174,33 @@ function generateCartDescription() {
 }
 
 // Función para crear el botón de pago de MercadoPago
-const createCheckoutButton = (preferenceId)=>{
+const createCheckoutButton = (preferenceId) => {
     const brickBuilder = mp.bricks();
 
     const renderComponent = async () => {
         const walletContainer = document.querySelector("#wallet_container");
-        
+
         // Validación para solo crear un botón de MP.
         if (walletContainer.innerHTML.trim() === "") {
             await brickBuilder.create("wallet", "wallet_container", {
                 initialization: {
                     preferenceId: preferenceId,
                 },
+                callbacks: {
+                    onSubmit: async (response) => {
+                        // El pago se ha procesado
+                        if (response.status === 'approved') 
+                        {
+                            console.log("El pago salió con éxito.");
+                        }
+                        else
+                        {
+                            console.log("Hubo un error con el pago.")
+                        }
+                    },
+                }
             });
         }
     };
     renderComponent();
-}
-
+};
