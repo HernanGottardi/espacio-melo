@@ -111,6 +111,7 @@ const displayCart = () => {
             };
 
             const response = await fetch("https://servidor-espacio-melo.vercel.app/create_preference", {
+
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -120,7 +121,9 @@ const displayCart = () => {
 
             const preference = await response.json();
             createCheckoutButton(preference.id);
-        } catch (error) {
+        } 
+        catch (error) 
+        {
             console.log(error);
             alert("Error al procesar el pago 😕");
         }
@@ -185,22 +188,41 @@ const createCheckoutButton = (preferenceId) => {
             await brickBuilder.create("wallet", "wallet_container", {
                 initialization: {
                     preferenceId: preferenceId,
-                },
-                callbacks: {
-                    onSubmit: async (response) => {
-                        // El pago se ha procesado
-                        if (response.status === 'approved') 
-                        {
-                            console.log("El pago salió con éxito.");
-                        }
-                        else
-                        {
-                            console.log("Hubo un error con el pago.")
-                        }
-                    },
                 }
             });
         }
     };
+
     renderComponent();
+
+    // consultaEstadoPago(preferenceId)
+};
+
+
+// Función para consultar el estado de un pago en MercadoPago
+const consultaEstadoPago = async (preferenceId) => {
+    try {
+        const response = await fetch(`https://api.mercadopago.com/v1/payments/${preferenceId}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ACCESS_TOKEN', // Reemplaza ACCESS_TOKEN con tu token de MercadoPago
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const paymentInfo = await response.json();
+        console.log('Información del pago:', paymentInfo);
+
+        // Verifica el estado del pago y toma acciones correspondientes
+        if (paymentInfo.status === 'approved') {
+            console.log('El pago fue aprobado');
+            // Aquí podrías hacer algo más si el pago fue aprobado
+        } else {
+            console.log('El pago no fue aprobado');
+            // Aquí podrías manejar el caso en que el pago no fue aprobado
+        }
+
+    } catch (error) {
+        console.error('Error al consultar el estado del pago:', error);
+    }
 };
