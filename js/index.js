@@ -1,8 +1,8 @@
 const shopContent = document.querySelector("#shopContent");
 const modalMasInfo = document.querySelector(".modal-informacion");
 const modalMenu = document.querySelector(".modal-menu");
-const modalSobreMi = document.querySelector(".modal-sobreMi")
-const modalSeleccionarFecha = document.querySelector(".modal-seleccionarFecha")
+const modalSobreMi = document.querySelector(".modal-sobreMi");
+const modalSeleccionarFecha = document.querySelector(".modal-seleccionarFecha");
 const modalOver = document.querySelector("#modal-overlay");
 const modalTarot = document.querySelector(".modal-tarot");
 const buscador = document.querySelector(".buscadorProductos");
@@ -10,10 +10,10 @@ const contenedorCards = document.querySelector(".card-products-container");
 const cartBTN = document.querySelector(".cart-btn");
 const contadorCarrito = document.querySelector(".cart-counter");
 const encabezado = document.querySelector(".encabezado");               
-const menu = document.querySelector(".menu")
-const w = document.querySelector(".wpp-enlace")
-const contenedorBuscador = document.querySelector(".contenedorBuscador")
-const footer = document.querySelector(".contenedorFooter")
+const menu = document.querySelector(".menu");
+const w = document.querySelector(".wpp-enlace");
+const contenedorBuscador = document.querySelector(".contenedorBuscador");
+const footer = document.querySelector(".contenedorFooter");
 export const cart = [];
 export const fechas = [];
 
@@ -608,3 +608,16 @@ menu.addEventListener("click", (e) => {
     });
 });
 
+document.querySelector(".contenedorLogo").addEventListener("click", (e)=>{
+    e.preventDefault();
+    modalMasInfo.style.display = "none";
+    modalMenu.style.display = "none";
+    modalOver.style.display = "none";
+    modalSeleccionarFecha.style.display = "none";
+    modalSobreMi.style.display = "none";
+    modalTarot.style.display = "none";
+    contenedorCards.style.display = "flex";
+    contenedorBuscador.style.display = "flex";
+    encabezado.style.height = "16vh";
+    shopContent.style.margin = "0px"
+})
